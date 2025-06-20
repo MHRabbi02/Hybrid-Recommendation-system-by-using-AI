@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head><title>Hybrid Recommendations</title></head>
+<body>
+<h2>Hybrid Recommended Destinations</h2>
+<table border="1" cellpadding="8">
+<tr><th>Destination</th><th>Hybrid Score</th></tr>
+{% for rec in recommendations %}
+<tr>
+  <td>{{ rec['destination'] }}</td>
+  <td>{{ rec['hybrid_score'] | round(2) }}</td>
+</tr>
+{% endfor %}
+</table>
+</body>
+</html>

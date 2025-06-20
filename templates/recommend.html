@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head><title>Destination Recommendation</title></head>
+<body>
+<h2>Content-Based Recommendations</h2>
+
+<form method="POST">
+  Enter Destination: <input type="text" name="destination" required>
+  <button type="submit">Get Recommendations</button>
+</form>
+
+{% if recommendations %}
+  <h3>Recommended Destinations:</h3>
+  <ul>
+    {% for rec in recommendations %}
+      <li>
+        <strong>{{ rec['destination'] }}</strong><br>
+        Location: {{ rec['location'] }}<br>
+        Category: {{ rec['category'] }}<br>
+        Hotel: {{ rec['Hotel Name'] }}<br>
+        Hotel Rating: {{ rec['Hotel Rating'] }} Stars
+      </li><br>
+    {% endfor %}
+  </ul>
+{% endif %}
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Your Profile</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        table { width: 90%; border-collapse: collapse; margin: 20px auto; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #333; color: white; }
+        .btn { padding: 8px 15px; text-decoration: none; border-radius: 5px; }
+        .btn-green { background-color: #28a745; color: white; }
+        .btn-red { background-color: #dc3545; color: white; }
+        .btn-yellow { background-color: #ffc107; color: black; }
+        .header-btns { text-align: center; margin: 20px; }
+    </style>
+</head>
+<body>
+
+<h2 style="text-align:center;">Welcome, {{ username }}!</h2>
+
+<div class="header-btns">
+    <a href="/rate" class="btn btn-green">➕ Add New Rating</a>
+    <a href="/logout" class="btn btn-red">🚪 Logout</a>
+</div>
+
+{% if user_ratings|length == 0 %}
+    <p>👋 Welcome! You haven’t rated any destinations yet. Your recommendations are based on popularity.</p>
+{% endif %}
+
+
+<h3>⭐ Your Ratings</h3>
+<table>
+    <tr>
+        <th>Destination</th>
+        <th>Rating</th>
+        <th>Action</th>
+    </tr>
+    {% for rating_data in user_ratings %}
+    <tr>
+        <td>{{ rating_data[0] }}</td>  <!-- destination -->
+        <td>{{ rating_data[1] }}</td>  <!-- rating -->
+        <td>
+            <a href="/edit_rating/{{ rating_data[2] }}" class="btn btn-yellow">Edit</a>  <!-- rating_id -->
+            <a href="/delete_rating/{{ rating_data[2] }}" class="btn btn-red">Delete</a>  <!-- rating_id -->
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<!-- Display Hybrid Hotel Recommendations -->
+{% for recommendation in hotel_recommendations %}
+    <h3>{{ recommendation['destination'] }} (Hybrid Recommendation)</h3>
+
+    <!-- Display the list of hotels for this destination -->
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Hotel Name</th>
+                <th>Hotel Rating</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for hotel in recommendation['hotels'] %}
+                <tr>
+                    <td>{{ hotel['Hotel Name'] }}</td>
+                    <td>{{ hotel['Hotel Rating'] }} stars</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    
+    <h4>Do you need travel criteria for {{ recommendation['destination'] }}?</h4>
+    
+    <form action="/criteria_display" method="POST">
+        <select name="answer">
+            <option value="YES">YES</option>
+            <option value="No">No</option>
+        </select>
+        <input type="hidden" value="{{ recommendation['destination'] }}" name="destination">
+        <button type="submit">submit</button>
+    </form>
+    
+    <p class="show">Answer: {{sum}}</p>
+{% endfor %}
+
+</body>
+</html>

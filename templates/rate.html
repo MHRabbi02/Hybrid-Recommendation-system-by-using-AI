@@ -1,0 +1,14 @@
+<h2>Rate a Destination</h2>
+<form method="POST">
+    <label>Select Destination:</label>
+    <select name="destination" required>
+        {% for dest in destinations %}
+            <option value="{{ dest }}">{{ dest }}</option>
+        {% endfor %}
+    </select><br><br>
+
+    <label>Rating (1-5):</label>
+    <input type="number" name="rating" min="1" max="5" required><br><br>
+
+    <input type="submit" value="Submit Rating">
+</form>

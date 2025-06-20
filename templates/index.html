@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tour Recommendation System</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f9f9f9; padding: 20px; }
+        h1 { color: #333; }
+        form { margin-bottom: 30px; }
+        input[type="text"] { padding: 10px; width: 300px; }
+        button { padding: 10px 15px; background-color: #4CAF50; color: white; border: none; }
+        button:hover { background-color: #45a049; cursor: pointer; }
+        ul { list-style: none; padding: 0; }
+        li { background: #fff; padding: 15px; margin-bottom: 10px; border-radius: 5px; box-shadow: 0 0 5px #ccc; }
+    </style>
+</head>
+<body>
+
+    <h1>Tour Recommendation System</h1>
+
+    <form method="POST">
+        <label for="destination">Enter Destination:</label><br><br>
+        <input type="text" name="destination" placeholder="Example: Cox's Bazar Sea Beach" required>
+        <button type="submit">Get Recommendations</button>
+    </form>
+
+    {% if recommendations %}
+        <h2>Recommended Destinations:</h2>
+        <ul>
+            {% for rec in recommendations %}
+                <li>
+                    <strong>{{ rec['destination'] }}</strong><br>
+                    Location: {{ rec['location'] }}<br>
+                    Category: {{ rec['category'] }}<br>
+                    Hotel: {{ rec['Hotel Name'] }}<br>
+                    Hotel Rating: {{ rec['Hotel Rating'] }} Stars
+                </li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+
+</body>
+</html>
